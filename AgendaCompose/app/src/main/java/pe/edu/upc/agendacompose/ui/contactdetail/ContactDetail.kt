@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,7 +26,7 @@ import pe.edu.upc.agendacompose.ui.theme.AgendaComposeTheme
 @Composable
 fun ContactDetail(
     contact: Contact?,
-    addContact: (Contact) -> Unit,
+    saveContact: (Contact) -> Unit,
     pressOnBack: () -> Unit) {
 
     val name = remember {
@@ -37,8 +38,15 @@ fun ContactDetail(
 
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = {
-            val newContact = Contact(name.value, telephone.value)
-            addContact(newContact)
+            if (contact == null) {
+                val newContact = Contact(name.value, telephone.value)
+                saveContact(newContact)
+            } else {
+                contact.name = name.value
+                contact.telephone = telephone.value
+                saveContact(contact)
+            }
+
             pressOnBack()
         }) {
             Icon(Icons.Filled.Done, "Save")

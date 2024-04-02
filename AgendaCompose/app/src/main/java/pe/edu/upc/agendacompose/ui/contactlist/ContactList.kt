@@ -24,7 +24,7 @@ import pe.edu.upc.agendacompose.ui.theme.AgendaComposeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactList(
-    contacts: List<Contact>,
+    contacts: Array<Contact>,
     selectContact: (Int) -> Unit,
     newContact: () -> Unit
 ) {
@@ -54,6 +54,6 @@ fun ContactList(
 @Composable
 fun ContactListPreview() {
     AgendaComposeTheme {
-        ContactList(emptyList(), {},{})
+        ContactList(emptyArray(), {},{})
     }
 }

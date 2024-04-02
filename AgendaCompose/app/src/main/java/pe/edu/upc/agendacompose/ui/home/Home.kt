@@ -17,13 +17,13 @@ import pe.edu.upc.agendacompose.ui.contactlist.ContactList
 fun Home() {
     val navController = rememberNavController()
     val contacts = remember {
-        mutableStateOf(emptyList<Contact>())
+        mutableStateOf(emptyArray<Contact>())
     }
 
 
     NavHost(navController = navController, startDestination = Routes.ContactList.route) {
         composable(
-            route =  Routes.ContactList.route
+            route = Routes.ContactList.route
         ) {
             ContactList(contacts.value,
                 selectContact = { index ->
@@ -35,20 +35,27 @@ fun Home() {
         }
         composable(
             route = Routes.ContactDetail.routeWithArgument,
-            arguments = listOf(navArgument(Routes.ContactDetail.argument) { type = NavType.IntType })
+            arguments = listOf(navArgument(Routes.ContactDetail.argument) {
+                type = NavType.IntType
+            })
         ) { backStackEntry ->
-            val index = backStackEntry.arguments?.getInt(Routes.ContactDetail.argument) ?:return@composable
+            val index =
+                backStackEntry.arguments?.getInt(Routes.ContactDetail.argument) ?: return@composable
 
-            var contact: Contact?
-            if (index < 0){
-                 contact = null
+            val contact: Contact? = if (index < 0) {
+                null
             } else {
-                contact = contacts.value.get(index)
+                contacts.value[index]
             }
             ContactDetail(
                 contact = contact,
-                addContact = { newContact ->
-                    contacts.value += newContact
+                saveContact = {
+                    if (index < 0) {
+                        contacts.value += it
+                    } else {
+                        contacts.value[index] = it
+                    }
+
                 },
                 pressOnBack = {
                     navController.navigateUp()
