@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -22,13 +23,16 @@ import pe.edu.upc.agendacompose.model.Contact
 import pe.edu.upc.agendacompose.ui.theme.AgendaComposeTheme
 
 @Composable
-fun ContactDetail(addContact: (Contact) -> Unit, pressOnBack: () -> Unit) {
+fun ContactDetail(
+    contact: Contact,
+    addContact: (Contact) -> Unit,
+    pressOnBack: () -> Unit) {
 
     val name = remember {
-        mutableStateOf("")
+        mutableStateOf(contact.name)
     }
     val telephone = remember {
-        mutableStateOf("")
+        mutableStateOf(contact.telephone)
     }
 
     Scaffold(floatingActionButton = {
@@ -51,6 +55,9 @@ fun ContactDetail(addContact: (Contact) -> Unit, pressOnBack: () -> Unit) {
                     .fillMaxWidth()
                     .padding(8.dp),
                 value = name.value,
+                placeholder = {
+                    Text(text = "Name")
+                },
                 onValueChange = { newValue ->
                     name.value = newValue
                 })
@@ -60,6 +67,9 @@ fun ContactDetail(addContact: (Contact) -> Unit, pressOnBack: () -> Unit) {
                     .fillMaxWidth()
                     .padding(8.dp),
                 value = telephone.value,
+                placeholder = {
+                    Text(text = "Phone")
+                },
                 onValueChange = { newValue ->
                     telephone.value = newValue
                 })
@@ -71,6 +81,6 @@ fun ContactDetail(addContact: (Contact) -> Unit, pressOnBack: () -> Unit) {
 @Composable
 fun ContactDetailPreview() {
     AgendaComposeTheme {
-        ContactDetail({}, { })
+        ContactDetail(Contact("Marco", "123"),{}, { })
     }
 }

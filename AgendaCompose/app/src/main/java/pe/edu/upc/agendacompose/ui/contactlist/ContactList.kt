@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -19,8 +20,13 @@ import androidx.compose.ui.unit.dp
 import pe.edu.upc.agendacompose.model.Contact
 import pe.edu.upc.agendacompose.ui.theme.AgendaComposeTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactList(contacts: List<Contact>, newContact: () -> Unit) {
+fun ContactList(
+    contacts: List<Contact>,
+    selectContact: (Int) -> Unit,
+    newContact: () -> Unit
+) {
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = { newContact() }) {
             Icon(Icons.Filled.Add, "New contact")
@@ -28,7 +34,9 @@ fun ContactList(contacts: List<Contact>, newContact: () -> Unit) {
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(contacts) { contact ->
-                Card(modifier = Modifier.padding(4.dp)) {
+                Card(modifier = Modifier.padding(4.dp), onClick = {
+                    selectContact(0)
+                }) {
                     Column(modifier = Modifier.padding(4.dp)) {
                         Text(modifier = Modifier.fillMaxWidth(), text = contact.name)
                         Text(modifier = Modifier.fillMaxWidth(), text = contact.telephone)
@@ -45,6 +53,6 @@ fun ContactList(contacts: List<Contact>, newContact: () -> Unit) {
 @Composable
 fun ContactListPreview() {
     AgendaComposeTheme {
-        ContactList(emptyList(), {})
+        ContactList(emptyList(), {},{})
     }
 }
