@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import pe.edu.upc.agendacompose.Routes
 import pe.edu.upc.agendacompose.model.Contact
 import pe.edu.upc.agendacompose.ui.contactdetail.ContactDetail
 import pe.edu.upc.agendacompose.ui.contactlist.ContactList
@@ -20,24 +21,30 @@ fun Home() {
     }
 
 
-    NavHost(navController = navController, startDestination = "ContactList") {
+    NavHost(navController = navController, startDestination = Routes.ContactList.route) {
         composable(
-            route = "ContactList"
+            route =  Routes.ContactList.route
         ) {
             ContactList(contacts.value,
                 selectContact = { index ->
-                    navController.navigate("ContactDetail/$index")
+                    navController.navigate("${Routes.ContactDetail.route}/$index")
                 },
                 newContact = {
-                    navController.navigate("ContactDetail")
+                    navController.navigate(Routes.ContactDetail.routeWithoutArgument)
                 })
         }
         composable(
-            route = "ContactDetail/{index}",
-            arguments = listOf(navArgument("index") { type = NavType.IntType })
+            route = Routes.ContactDetail.routeWithArgument,
+            arguments = listOf(navArgument(Routes.ContactDetail.argument) { type = NavType.IntType })
         ) { backStackEntry ->
-            val index = backStackEntry.arguments?.getInt("index") as Int
-            val contact = contacts.value[index]
+            val index = backStackEntry.arguments?.getInt(Routes.ContactDetail.argument) ?:return@composable
+
+            var contact: Contact?
+            if (index < 0){
+                 contact = null
+            } else {
+                contact = contacts.value.get(index)
+            }
             ContactDetail(
                 contact = contact,
                 addContact = { newContact ->
@@ -47,18 +54,6 @@ fun Home() {
                     navController.navigateUp()
                 })
         }
-        composable(
-            route = "ContactDetail"
-        ) {
-            ContactDetail(
-                contact = Contact("", telephone = ""),
-                addContact = { newContact ->
-                    contacts.value += newContact
-                },
-                pressOnBack = {
-                    navController.navigateUp()
-                })
 
-        }
     }
 }

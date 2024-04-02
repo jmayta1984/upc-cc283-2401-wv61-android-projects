@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -33,17 +34,17 @@ fun ContactList(
         }
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            items(contacts) { contact ->
+            itemsIndexed(contacts) { index, contact ->
                 Card(modifier = Modifier.padding(4.dp), onClick = {
-                    selectContact(0)
+                    selectContact(index)
                 }) {
                     Column(modifier = Modifier.padding(4.dp)) {
                         Text(modifier = Modifier.fillMaxWidth(), text = contact.name)
                         Text(modifier = Modifier.fillMaxWidth(), text = contact.telephone)
                     }
                 }
-
             }
+
         }
     }
 

@@ -24,21 +24,21 @@ import pe.edu.upc.agendacompose.ui.theme.AgendaComposeTheme
 
 @Composable
 fun ContactDetail(
-    contact: Contact,
+    contact: Contact?,
     addContact: (Contact) -> Unit,
     pressOnBack: () -> Unit) {
 
     val name = remember {
-        mutableStateOf(contact.name)
+        mutableStateOf(contact?.name ?: "")
     }
     val telephone = remember {
-        mutableStateOf(contact.telephone)
+        mutableStateOf(contact?.telephone ?: "")
     }
 
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = {
-            val contact = Contact(name.value, telephone.value)
-            addContact(contact)
+            val newContact = Contact(name.value, telephone.value)
+            addContact(newContact)
             pressOnBack()
         }) {
             Icon(Icons.Filled.Done, "Save")
