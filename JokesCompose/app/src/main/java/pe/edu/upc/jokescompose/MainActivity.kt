@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import pe.edu.upc.jokescompose.repositories.JokeRepository
 import pe.edu.upc.jokescompose.ui.theme.JokesComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,6 +41,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Home() {
 
+    val jokeRepository = JokeRepository()
     val joke = remember {
         mutableStateOf("Random")
     }
@@ -53,7 +55,9 @@ fun Home() {
         ) {
             Text(text = joke.value)
             Button(onClick = {
-                joke.value = "jeje"
+                jokeRepository.getRandomJoke (callback = {
+                    joke.value = it.text
+                })
             }) {
                 Text("Get random joke")
             }
