@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import pe.edu.upc.superherocompose.model.data.Hero
+import pe.edu.upc.superherocompose.repositories.HeroRepository
 
 @Composable
 fun Home() {
@@ -38,12 +39,17 @@ fun HeroSearch() {
 
 @Composable
 fun HeroList() {
-
     val heroes = remember {
         mutableStateOf(emptyList<Hero>())
     }
+    val heroRepository = HeroRepository()
 
+    heroRepository.searchHero {
+        heroes.value = it
+    }
     LazyColumn {
+
+
         items(heroes.value) { hero ->
             HeroCard(hero)
         }
