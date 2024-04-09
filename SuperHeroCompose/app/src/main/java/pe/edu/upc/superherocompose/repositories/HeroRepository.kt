@@ -12,8 +12,8 @@ import retrofit2.Response
 class HeroRepository(
     private val heroService: HeroService = HeroServiceFactory.getHeroService()
 ) {
-    fun searchHero(callback: (List<Hero>)-> Unit) {
-        val searchHero = heroService.searchHero()
+    fun searchHero(name: String, callback: (List<Hero>)-> Unit) {
+        val searchHero = heroService.searchHero(name = name)
 
         searchHero.enqueue(object: Callback<HeroWrapper>{
             override fun onResponse(call: Call<HeroWrapper>, response: Response<HeroWrapper>) {
