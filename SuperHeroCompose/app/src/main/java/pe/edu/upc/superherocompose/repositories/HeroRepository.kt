@@ -12,18 +12,37 @@ import retrofit2.Response
 class HeroRepository(
     private val heroService: HeroService = HeroServiceFactory.getHeroService()
 ) {
-    fun searchHero(name: String, callback: (List<Hero>)-> Unit) {
+    fun searchHero(name: String, callback: (List<Hero>) -> Unit) {
         val searchHero = heroService.searchHero(name = name)
 
-        searchHero.enqueue(object: Callback<HeroWrapper>{
+        searchHero.enqueue(object : Callback<HeroWrapper> {
             override fun onResponse(call: Call<HeroWrapper>, response: Response<HeroWrapper>) {
-                if (response.isSuccessful){
-                    val heroes = response.body()?.heroes?: emptyList()
+                if (response.isSuccessful) {
+                    val heroes = response.body()?.heroes ?: emptyList()
                     callback(heroes)
                 }
             }
 
             override fun onFailure(call: Call<HeroWrapper>, t: Throwable) {
+                t.message?.let {
+                    Log.d("HeroRepository", it)
+                }
+            }
+        })
+    }
+
+    fun searchHeroById(id: String, callback: (Hero) -> Unit) {
+        val searchHeroById = heroService.searchHeroById(id = id)
+
+        searchHeroById.enqueue(object : Callback<Hero> {
+            override fun onResponse(call: Call<Hero>, response: Response<Hero>) {
+                if (response.isSuccessful) {
+                    val hero = response.body() as Hero
+                    callback(hero)
+                }
+            }
+
+            override fun onFailure(call: Call<Hero>, t: Throwable) {
                 t.message?.let {
                     Log.d("HeroRepository", it)
                 }

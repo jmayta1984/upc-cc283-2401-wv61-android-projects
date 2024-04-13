@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
@@ -110,7 +111,7 @@ fun HeroCard(hero: Hero) {
             .padding(4.dp)
     ) {
         Row {
-            HeroImage(hero.image.url)
+            HeroImage(hero.image.url, 92.dp)
             Column(
                 modifier = Modifier
                     .padding(4.dp)
@@ -133,11 +134,11 @@ fun HeroCard(hero: Hero) {
 }
 
 @Composable
-fun HeroImage(url: String) {
+fun HeroImage(url: String, size: Dp) {
     GlideImage(
         imageModel = { url },
         imageOptions = ImageOptions(contentScale = ContentScale.Crop),
-        modifier = Modifier.size(92.dp)
+        modifier = Modifier.size(size)
     )
 }
 
