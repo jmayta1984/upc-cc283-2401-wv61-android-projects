@@ -1,6 +1,5 @@
 package pe.edu.upc.superherocompose.ui.heroessearch
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,7 +42,6 @@ fun HeroesSearch(
     heroes: MutableState<List<Hero>>,
     selectHero: (String) -> Unit
 ) {
-
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             HeroSearch(name, heroes)
