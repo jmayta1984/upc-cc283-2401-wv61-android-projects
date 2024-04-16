@@ -1,5 +1,6 @@
 package pe.edu.upc.superherocompose.ui.heroessearch
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,20 +38,16 @@ import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.repositories.HeroRepository
 
 @Composable
-fun HeroesSearch() {
-
-    val name = remember {
-        mutableStateOf("")
-    }
-
-    val heroes = remember {
-        mutableStateOf(emptyList<Hero>())
-    }
+fun HeroesSearch(
+    name: MutableState<String>,
+    heroes: MutableState<List<Hero>>,
+    selectHero: (String) -> Unit
+) {
 
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             HeroSearch(name, heroes)
-            HeroList(heroes)
+            HeroList(heroes, selectHero)
         }
     }
 
@@ -88,18 +86,18 @@ fun HeroSearch(name: MutableState<String>, heroes: MutableState<List<Hero>>) {
 
 
 @Composable
-fun HeroList(heroes: MutableState<List<Hero>>) {
+fun HeroList(heroes: MutableState<List<Hero>>, selectHero: (String) -> Unit) {
 
     LazyColumn {
 
         items(heroes.value) { hero ->
-            HeroCard(hero)
+            HeroCard(hero, selectHero)
         }
     }
 }
 
 @Composable
-fun HeroCard(hero: Hero) {
+fun HeroCard(hero: Hero, selectHero: (String) -> Unit) {
 
     val isFavorite = remember {
         mutableStateOf(false)
@@ -108,7 +106,10 @@ fun HeroCard(hero: Hero) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(4.dp),
+        onClick = {
+            selectHero(hero.id)
+        }
     ) {
         Row {
             HeroImage(hero.image.url, 92.dp)
@@ -126,7 +127,7 @@ fun HeroCard(hero: Hero) {
                 Icon(
                     Icons.Filled.Favorite,
                     "Favorite",
-                    tint = if (isFavorite.value) Color.Red else Color.Gray
+                    tint = if (isFavorite.value) MaterialTheme.colorScheme.primary else Color.Gray
                 )
             }
         }
