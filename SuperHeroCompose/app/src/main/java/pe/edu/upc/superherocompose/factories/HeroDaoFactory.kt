@@ -7,8 +7,14 @@ import pe.edu.upc.superherocompose.persistence.AppDatabase
 class HeroDaoFactory {
 
     companion object {
+        private var heroDao: HeroDao? = null
+
         fun getHeroDao(): HeroDao {
-            return AppDatabase.getInstance(MyApplication.getContext()).heroDao()
+            if (heroDao == null) {
+                heroDao = AppDatabaseFactory.getAppDatabase(MyApplication.getContext()).heroDao()
+
+            }
+            return heroDao as HeroDao
         }
     }
 }

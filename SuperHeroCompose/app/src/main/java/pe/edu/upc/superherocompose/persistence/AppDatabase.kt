@@ -11,15 +11,5 @@ import pe.edu.upc.superherocompose.model.local.HeroEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun heroDao(): HeroDao
 
-    companion object {
-        private var db: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase {
-            if (db == null) {
-                db = Room.databaseBuilder(context, AppDatabase::class.java, "hero_db")
-                    .allowMainThreadQueries().build()
-            }
-            return db as AppDatabase
-        }
-    }
 }
