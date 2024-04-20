@@ -101,6 +101,9 @@ fun HeroCard(hero: Hero, selectHero: (String) -> Unit) {
     val isFavorite = remember {
         mutableStateOf(false)
     }
+    isFavorite.value = hero.isFavorite
+
+    val heroRepository = HeroRepositoryFactory.getHeroRepository()
 
     Card(
         modifier = Modifier
@@ -122,6 +125,13 @@ fun HeroCard(hero: Hero, selectHero: (String) -> Unit) {
             }
             IconButton(onClick = {
                 isFavorite.value = !isFavorite.value
+                if (isFavorite.value) {
+                    heroRepository.insertHero(hero.id)
+                    hero.isFavorite = true
+                } else {
+                    heroRepository.deleteHero(hero.id)
+                    hero.isFavorite = false
+                }
             }, modifier = Modifier.weight(1f)) {
                 Icon(
                     Icons.Filled.Favorite,

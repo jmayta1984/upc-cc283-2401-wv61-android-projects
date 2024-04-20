@@ -6,15 +6,29 @@ import pe.edu.upc.superherocompose.factories.HeroServiceFactory
 import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.model.data.HeroWrapper
 import pe.edu.upc.superherocompose.model.local.HeroDao
+import pe.edu.upc.superherocompose.model.local.HeroEntity
 import pe.edu.upc.superherocompose.model.remote.HeroService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HeroRepository(
-    private val heroService: HeroService ,
+    private val heroService: HeroService,
     private val heroDao: HeroDao
 ) {
+
+    fun insertHero(id: String) {
+        heroDao.insert(HeroEntity(id = id))
+    }
+
+    fun deleteHero(id: String) {
+        heroDao.delete(HeroEntity(id = id))
+    }
+
+    fun isFavorite(id: String): Boolean {
+        return (heroDao.fetchById(id = id) != null)
+    }
+
     fun searchHero(name: String, callback: (List<Hero>) -> Unit) {
         val searchHero = heroService.searchHero(name = name)
 
@@ -22,6 +36,9 @@ class HeroRepository(
             override fun onResponse(call: Call<HeroWrapper>, response: Response<HeroWrapper>) {
                 if (response.isSuccessful) {
                     val heroes = response.body()?.heroes ?: emptyList()
+                    for (hero in heroes) {
+                        hero.isFavorite = isFavorite(hero.id)
+                    }
                     callback(heroes)
                 }
             }

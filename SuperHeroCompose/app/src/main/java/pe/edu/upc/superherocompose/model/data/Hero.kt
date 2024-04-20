@@ -12,7 +12,8 @@ data class Hero(
     val biography: Biography,
     val image: Image,
     @SerializedName("powerstats")
-    val powerStats: PowerStats
+    val powerStats: PowerStats,
+    var isFavorite: Boolean = false
 )
 
 data class PowerStats(
