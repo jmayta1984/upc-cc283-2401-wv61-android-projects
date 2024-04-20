@@ -4,7 +4,7 @@ import pe.edu.upc.superherocompose.MyApplication
 import pe.edu.upc.superherocompose.model.local.HeroDao
 import pe.edu.upc.superherocompose.persistence.AppDatabase
 
-class HeroDaoFactory {
+class HeroDaoFactory private constructor(){
 
     companion object {
         private var heroDao: HeroDao? = null

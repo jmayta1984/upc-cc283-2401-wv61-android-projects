@@ -12,8 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HeroRepository(
-    private val heroService: HeroService = HeroServiceFactory.getHeroService(),
-    private val heroDao: HeroDao = HeroDaoFactory.getHeroDao()
+    private val heroService: HeroService ,
+    private val heroDao: HeroDao
 ) {
     fun searchHero(name: String, callback: (List<Hero>) -> Unit) {
         val searchHero = heroService.searchHero(name = name)

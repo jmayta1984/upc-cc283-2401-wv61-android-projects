@@ -4,7 +4,7 @@ import pe.edu.upc.superherocompose.network.ApiClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitFactory {
+class RetrofitFactory private constructor() {
 
     companion object {
 

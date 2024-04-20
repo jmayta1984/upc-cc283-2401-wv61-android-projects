@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import pe.edu.upc.superherocompose.persistence.AppDatabase
 
-class AppDatabaseFactory {
+class AppDatabaseFactory private constructor(){
     companion object {
         private var db: AppDatabase? = null
 

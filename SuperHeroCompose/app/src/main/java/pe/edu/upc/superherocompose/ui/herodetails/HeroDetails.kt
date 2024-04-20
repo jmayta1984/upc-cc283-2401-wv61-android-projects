@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import pe.edu.upc.superherocompose.factories.HeroRepositoryFactory
 import pe.edu.upc.superherocompose.model.data.Biography
 import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.model.data.PowerStats
@@ -28,7 +29,7 @@ fun HeroDetails(id: String) {
     val hero = remember {
         mutableStateOf<Hero?>(null)
     }
-    HeroRepository().searchHeroById(id) {
+    HeroRepositoryFactory.getHeroRepository().searchHeroById(id) {
         hero.value = it
     }
 
@@ -48,8 +49,10 @@ fun HeroDetails(id: String) {
 
 @Composable
 fun HeroPowerStats(powerStats: PowerStats) {
-    Card(modifier = Modifier.fillMaxWidth().padding(4.dp)) {
-        Column (modifier = Modifier.padding(4.dp)){
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(4.dp)) {
+        Column(modifier = Modifier.padding(4.dp)) {
             Text(
                 text = "Power Stats",
                 color = MaterialTheme.colorScheme.primary,
@@ -69,10 +72,15 @@ fun HeroPowerStats(powerStats: PowerStats) {
 
 @Composable
 fun HeroStat(name: String, value: String) {
-    Row (verticalAlignment = Alignment.CenterVertically){
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Text(text = name, modifier = Modifier.weight(2f))
         value.toFloatOrNull()?.let {
-            Slider(value = it, onValueChange = {}, valueRange = 0f..100f, modifier = Modifier.weight(4f))
+            Slider(
+                value = it,
+                onValueChange = {},
+                valueRange = 0f..100f,
+                modifier = Modifier.weight(4f)
+            )
 
         }
     }
@@ -81,8 +89,10 @@ fun HeroStat(name: String, value: String) {
 
 @Composable
 fun HeroBiography(biography: Biography) {
-    Card(modifier = Modifier.fillMaxWidth().padding(4.dp)) {
-        Column (modifier = Modifier.padding(4.dp)) {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(4.dp)) {
+        Column(modifier = Modifier.padding(4.dp)) {
             Text(
                 text = "Biography",
                 color = MaterialTheme.colorScheme.primary,
