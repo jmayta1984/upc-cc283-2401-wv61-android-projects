@@ -10,8 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import pe.edu.upc.eatsexplorer.ui.signin.SignInScreen
-import pe.edu.upc.eatsexplorer.ui.signup.SignUpScreen
+import pe.edu.upc.eatsexplorer.ui.screens.signin.SignInScreen
+import pe.edu.upc.eatsexplorer.ui.screens.signup.SignUpScreen
 import pe.edu.upc.eatsexplorer.ui.theme.EatsExplorerTheme
 
 class MainActivity : ComponentActivity() {
