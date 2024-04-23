@@ -20,16 +20,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pe.edu.upc.eatsexplorer.ui.shared.InputTextField
 import pe.edu.upc.eatsexplorer.ui.shared.PasswordTextField
-import pe.edu.upc.eatsexplorer.ui.theme.EatsExplorerTheme
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navigateToSignUp: () -> Unit) {
 
     val username = remember {
         mutableStateOf("")
@@ -48,7 +44,7 @@ fun SignInScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            InputTextField(input = username, placeholder = "Username" )
+            InputTextField(input = username, placeholder = "Username")
             PasswordTextField(password = password, text = "Password")
             Button(modifier = Modifier
                 .fillMaxWidth()
@@ -59,17 +55,11 @@ fun SignInScreen() {
             Button(modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-                onClick = { /*TODO*/ }) {
+                onClick = {
+                    navigateToSignUp()
+                }) {
                 Text(text = "Sign up")
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun SignInPreview() {
-    EatsExplorerTheme {
-        SignInScreen()
     }
 }

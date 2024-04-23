@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import pe.edu.upc.eatsexplorer.feature_auth.data.remote.UserRequest
+import pe.edu.upc.eatsexplorer.feature_auth.data.repository.AuthRepository
 import pe.edu.upc.eatsexplorer.ui.shared.InputTextField
 import pe.edu.upc.eatsexplorer.ui.shared.PasswordTextField
 
@@ -62,7 +64,18 @@ fun SignUpScreen() {
             Button(modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-                onClick = { /*TODO*/ }) {
+                onClick = {
+                    AuthRepository().signUp(
+                        UserRequest(
+                            firstName.value,
+                            lastName.value,
+                            username.value,
+                            password.value
+                        )
+                    ) {
+
+                    }
+                }) {
                 Text(text = "Sign up")
             }
         }
