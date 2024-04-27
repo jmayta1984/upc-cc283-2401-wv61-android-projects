@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import pe.edu.upc.eatsexplorer.ui.screens.restaurantlist.RestaurantListScreen
 import pe.edu.upc.eatsexplorer.ui.screens.signin.SignInScreen
 import pe.edu.upc.eatsexplorer.ui.screens.signup.SignUpScreen
 
@@ -11,7 +12,7 @@ import pe.edu.upc.eatsexplorer.ui.screens.signup.SignUpScreen
 fun HomeScreen() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Routes.SignIn.route) {
+    NavHost(navController = navController, startDestination = Routes.RestaurantList.route) {
 
         composable(Routes.SignIn.route) {
             SignInScreen {
@@ -21,6 +22,10 @@ fun HomeScreen() {
         composable(Routes.SignUp.route) {
             SignUpScreen()
         }
+
+        composable(Routes.RestaurantList.route) {
+            RestaurantListScreen()
+        }
     }
 
 }
@@ -28,4 +33,6 @@ fun HomeScreen() {
 sealed class Routes(val route: String) {
     data object SignIn : Routes(route = "SignIn")
     data object SignUp : Routes(route = "SignUp")
+
+    data object RestaurantList : Routes(route = "Restaurants")
 }

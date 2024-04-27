@@ -1,6 +1,6 @@
 package pe.edu.upc.eatsexplorer.feature_auth.data.remote
 
-import pe.edu.upc.eatsexplorer.feature_auth.domain.model.User
+import pe.edu.upc.eatsexplorer.feature_auth.domain.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

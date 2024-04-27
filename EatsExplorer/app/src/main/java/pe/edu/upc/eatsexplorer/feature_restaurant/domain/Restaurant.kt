@@ -8,5 +8,6 @@ data class Restaurant(
     @SerializedName("poster")
     val urlPoster: String,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    var isFavorite: Boolean = false
 )
