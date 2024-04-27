@@ -1,4 +1,5 @@
-package pe.edu.upc.eatsexplorer.feature_auth.domain.model
+package pe.edu.upc.eatsexplorer.feature_auth.domain
+
 
 data class User(
     val id: Int,

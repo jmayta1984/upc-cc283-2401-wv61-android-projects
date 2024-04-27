@@ -3,7 +3,7 @@ package pe.edu.upc.eatsexplorer.feature_auth.data.repository
 import android.util.Log
 import pe.edu.upc.eatsexplorer.feature_auth.data.remote.AuthService
 import pe.edu.upc.eatsexplorer.feature_auth.data.remote.UserRequest
-import pe.edu.upc.eatsexplorer.feature_auth.domain.model.User
+import pe.edu.upc.eatsexplorer.feature_auth.domain.User
 import pe.edu.upc.eatsexplorer.feature_auth.factories.AuthServiceFactory
 import retrofit2.Call
 import retrofit2.Callback

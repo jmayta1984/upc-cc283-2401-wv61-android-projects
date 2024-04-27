@@ -49,6 +49,8 @@ fun SignUpScreen() {
         mutableStateOf("")
     }
 
+
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
